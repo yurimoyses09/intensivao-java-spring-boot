@@ -17,11 +17,6 @@ public class GameController {
 
     @GetMapping
     public List<GameMinDTO> findAll(){
-        try{
-            return _service.findAll();
-        }catch (Exception exception){
-            System.out.println(exception.getMessage());
-            return null;
-        }
+        return _service.findAll();
     }
 }

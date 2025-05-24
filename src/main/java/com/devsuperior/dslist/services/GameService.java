@@ -14,21 +14,21 @@ import java.util.List;
 public class GameService {
 
     @Autowired
-    private final GameRepository _service;
+    private final GameRepository _repository;
 
-    public GameService(GameRepository service) {
-        _service = service;
+    public GameService(GameRepository repository) {
+        _repository = repository;
     }
 
     @Transactional(readOnly = true)
     public List<GameMinDTO> findAll(){
-        List<Game> result = _service.findAll();
+        List<Game> result = _repository.findAll();
         return result.stream().map(GameMinDTO::new).toList();
     }
 
     @Transactional(readOnly = true)
     public GameDTO findById(Long id){
-        Game result = _service.findById(id).get();
+        Game result = _repository.findById(id).get();
 
         return new GameDTO(result);
     }

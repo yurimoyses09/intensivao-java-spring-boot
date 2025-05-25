@@ -1,22 +1,24 @@
-version: '3.8'
+version: '3.9'
 
 services:
   app:
+    image: ${APP_IMAGE_NAME}
     build: .
     ports:
-      - "8080:8080"
+      - "${APP_PORT}:8080"
     depends_on:
       - db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/dsListDB
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:${DB_PORT}/${DB_NAME}
+      SPRING_DATASOURCE_USERNAME: ${DB_USER}
+      SPRING_DATASOURCE_PASSWORD:  ${DB_PASSWORD}
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILE}
 
   db:
     image: postgres:15
     environment:
-      POSTGRES_DB: dsListDB
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER:  ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "5432:5432"
+      - "${DB_PORT}:5432"
